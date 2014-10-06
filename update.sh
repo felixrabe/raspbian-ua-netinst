@@ -32,6 +32,7 @@ allfound() {
 }
 
 download_package_list() {
+    local package_section=$1
     # Download and verify package list for $package_section, then add to Packages file
     # Assume that the repository's base Release file is present
 
@@ -112,10 +113,8 @@ download_package_lists() {
     fi
 
     echo -n > Packages
-    package_section=firmware
-    download_package_list
-    package_section=main
-    download_package_list
+    download_package_list firmware
+    download_package_list main
 }
 
 rm -rf packages/
