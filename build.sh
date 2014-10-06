@@ -1,5 +1,6 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 set -e
 
 KERNEL_VERSION=3.12-1-rpi
@@ -74,16 +75,20 @@ function create_tempfile {
 }
 
 if [ ! -d packages ]; then
-    . ./update.sh
+    . "$DIR"/update.sh
 fi
 
 rm -rf tmp
 mkdir tmp
 
 # extract debs
-for i in packages/*.deb; do
-    cd tmp && ar x ../$i && tar -xf data.tar.*; rm data.tar.*; cd ..
+cd tmp
+for i in ../packages/*.deb; do
+    ar x $i
+    tar -xf data.tar.*
+    rm data.tar.*
 done
+cd -
 
 # initialize bootfs
 rm -rf bootfs
