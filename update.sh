@@ -58,13 +58,13 @@ download_package_list() {
 
             # Decompress the Packages file
             if [ $extension = ".bz2" ] ; then
-                decompressor="bunzip2 -c "
+                decompressor="bunzip2 -c"
             elif [ $extension = ".xz" ] ; then
-                decompressor="xzcat "
+                decompressor="xzcat"
             elif [ $extension = ".gz" ] ; then
-                decompressor="gunzip -c "
+                decompressor="gunzip -c"
             elif [ $extension = "" ] ; then
-                decompressor="cat "
+                decompressor="cat"
             fi
             ${decompressor} tmp${extension} >> Packages
             rm tmp${extension}
