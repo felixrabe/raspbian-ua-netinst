@@ -5,8 +5,15 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 CMD docker build -t raspbian-netinst .
 
+# Below, --privileged is needed for /dev/loop* interactions,
+# see http://stackoverflow.com/a/22052896/1034080.
+
+if [[ "$DEBUG_AUTOBUILD" = "1" ]] ; then
+  CMD_STR 'docker run --privileged --rm -ti -e DEBUG_AUTOBUILD=1 raspbian-netinst /bin/bash /build/autobuild-docker.inner.sh'
+  exit 0
+fi
+
 MSG 'This will take a few minutes: (stdout+err will be in the tar)'
-# --privileged is needed for /dev/loop* interactions, see http://stackoverflow.com/a/22052896/1034080
 CMD_STR 'docker run --privileged --rm raspbian-netinst /bin/bash /build/autobuild-docker.inner.sh > raspbian-ua-netinst-output.tar'
 
 MSG
