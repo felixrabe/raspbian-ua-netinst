@@ -7,4 +7,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd "$DIR"/packages
 rm ./busybox-static*
-CURL -O https://archive.raspbian.org/raspbian/pool/main/b/busybox/busybox-static_1.20.0-7_armhf.deb
+# CAUTION: INSECURE
+CURL -O http://archive.raspbian.org/raspbian/pool/main/b/busybox/busybox-static_1.20.0-7_armhf.deb
